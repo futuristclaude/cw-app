@@ -12,12 +12,12 @@ export async function middleware(request: NextRequest) {
         getAll() {
           return request.cookies.getAll();
         },
-        setAll(items) {
+        setAll(items: { name: string; value: string; options?: any }[]) {
           items.forEach(({ name, value, options }) =>
             request.cookies.set({ name, value, ...options })
           );
           response = NextResponse.next({ request });
-          items.forEach(({ name, value, options }) =>
+          items.forEach(({ name, value, options }: { name: string; value: string; options?: any }) =>
             response.cookies.set({ name, value, ...options })
           );
         },
